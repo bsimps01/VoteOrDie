@@ -7,6 +7,10 @@ contract Voting {
         uint voteCount;
     }
 
+    event votedEvent (
+        uint indexed _candidateId
+    );
+
     mapping(uint => Candidate) public candidates;
     mapping(address => bool) public voters;
 
@@ -28,5 +32,6 @@ contract Voting {
         require(_candidateId > 0 && _candidateId <= candidatesCount);
         voters[msg.sender] = true;
         candidates[_candidateId].voteCount ++;
+        emit votedEvent(_candidateId);
     }
 }
